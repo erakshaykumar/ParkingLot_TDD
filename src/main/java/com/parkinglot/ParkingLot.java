@@ -7,7 +7,10 @@ package com.parkinglot;
 
 public class ParkingLot {
 
+    private static final int MAX_SIZE_OF_PARKINGLOT = 2;
     Vehicle vehicle;
+
+
     /*
     UC1 : Method For Park
      */
@@ -30,4 +33,14 @@ public class ParkingLot {
         }
         return false;
     }
+
+    /**
+     * Creted Method to Check parking lot is full
+     * @param vehicles
+     * @return - length of parking lot
+     */
+    public static boolean checkParkingLot(Vehicle[] vehicles) {
+        return vehicles.length == MAX_SIZE_OF_PARKINGLOT;
+    }
+
 }
