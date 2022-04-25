@@ -1,4 +1,5 @@
-/**@Purpose : As a parking lot owner I want driver to be able to park their car
+/**
+ * @Purpose : As a parking lot owner I want driver to be able to park their car
  * So that they can catch their flight.
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
@@ -19,6 +20,7 @@ public class ParkingServicesTest {
         boolean isParked = parkingLot.park(car);
         Assertions.assertTrue(isParked);
     }
+
     /*
      UC2 : Vehicle when Unpark Return True
      */
@@ -30,4 +32,15 @@ public class ParkingServicesTest {
         boolean isUnParked = parkingLot.unPark(car);
         Assertions.assertTrue(isUnParked);
     }
+    /*
+     UC3 : Check For Parking Lot Is Full
+     */
+    @Test
+    public void givenArrayOfVehicles_WhenFull_ShouldReturnTrue() {
+        Vehicle[] vehicles = {new Vehicle("car1"),
+                new Vehicle("car2")};
+        boolean isFull = ParkingLot.checkParkingLot(vehicles);
+        Assertions.assertTrue(isFull);
+    }
+
 }
