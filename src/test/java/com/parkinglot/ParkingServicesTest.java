@@ -19,4 +19,15 @@ public class ParkingServicesTest {
         boolean isParked = parkingLot.park(car);
         Assertions.assertTrue(isParked);
     }
+    /*
+     UC2 : Vehicle when Unpark Return True
+     */
+    @Test
+    public void givenVehicle_WhenUnparked_ShouldReturnTrue() {
+        Vehicle car = new Vehicle("Swift");
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.park(car);
+        boolean isUnParked = parkingLot.unPark(car);
+        Assertions.assertTrue(isUnParked);
+    }
 }
