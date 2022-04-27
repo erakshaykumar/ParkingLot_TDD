@@ -10,20 +10,15 @@
  */
 package com.parkinglot;
 
-public class Vehicle {
-    String id;
-    String name;
+public class Owner implements ParkingObserver {
+    public static String status;
 
-    public Vehicle(String id, String name) {
-        this.id = id;
-        this.name = name;
+    @Override
+    public void update(String message) {
+        this.status = message;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
+    public String getStatus() {
+        return status;
     }
 }

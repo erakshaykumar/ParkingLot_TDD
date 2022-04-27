@@ -10,20 +10,16 @@
  */
 package com.parkinglot;
 
-public class Vehicle {
-    String id;
-    String name;
+public class ParkingLotException extends Exception {
+    public ExceptionType type;
+    public String message;
 
-    public Vehicle(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public enum ExceptionType {
+        PARKING_FULL, NO_SUCH_VEHICLE;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
+    ParkingLotException(ExceptionType type, String message) {
+        this.type = type;
+        this.message = message;
     }
 }
