@@ -17,6 +17,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class ParkingServicesTest {
     ParkingLot parkingLot = null;
     Owner owner = null;
@@ -121,5 +122,18 @@ public class ParkingServicesTest {
         parkingLot.park(vehicle1);
         Assert.assertEquals("Parking Full", airportSecurity.getStatus());
     }
-
+    /**
+     * UC5-When parking lot is full should give message to Owner
+     *
+     * @param: Vehicles
+     */
+    @Test
+    public void  givenAVehicle_WhenParkingLotIsFull_ShouldGiveMessageToOwner() throws ParkingLotException {
+        parkingLot.addObserver(owner);
+        Vehicle vehicle = new Vehicle("1", "Car");
+        parkingLot.park(vehicle);
+        Vehicle vehicle1 = new Vehicle("2", "car");
+        parkingLot.park(vehicle1);
+        Assert.assertEquals("Parking Full", owner.getStatus());
+    }
 }
