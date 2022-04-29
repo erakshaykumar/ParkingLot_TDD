@@ -108,19 +108,17 @@ public class ParkingServicesTest {
     }
 
     /**
-     * UC4 And UC5-Vehicles to When Owner And Security Return True
+     * UC4-When parking lot is full should give message to security personal
      *
      * @param: Vehicles
      */
     @Test
-    public void givenVehicle_WhenOwnerAndAadSecurity_ShouldReturnIsFull() throws ParkingLotException {
-        parkingLot.addObserver(owner);
+    public void  givenAVehicle_WhenParkingLotIsFull_ShouldGiveMessageToAirportSecurity() throws ParkingLotException {
         parkingLot.addObserver(airportSecurity);
         Vehicle vehicle = new Vehicle("1", "Car");
         parkingLot.park(vehicle);
         Vehicle vehicle1 = new Vehicle("2", "car");
         parkingLot.park(vehicle1);
-        Assert.assertEquals("Parking Full", owner.getStatus());
         Assert.assertEquals("Parking Full", airportSecurity.getStatus());
     }
 
