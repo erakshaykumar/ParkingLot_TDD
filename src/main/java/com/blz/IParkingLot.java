@@ -10,22 +10,12 @@
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
-package com.parkinglot;
+package com.blz;
 
-public class Vehicle {
-    String id;
-    String name;
+public interface IParkingLot {
+    public void park(Vehicle vehicle) throws ParkingLotException;
 
-    public Vehicle(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    public void unPark(Vehicle vehicle) throws ParkingLotException;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
+    public void notifyObservers(String message);
 }
