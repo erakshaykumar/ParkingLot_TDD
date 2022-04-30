@@ -98,13 +98,18 @@ public class ParkingLotTest {
     /**
      * UC3 Given a vehicle when parking lot is full should give message to owner
      */
+
     @Test
     public void givenAVehicle_WhenParkingLotIsFull_ShouldGiveMessageToOwner() {
-        Vehicle vehicle = new Vehicle("car1", 1);
+        Vehicle vehicle1 = new Vehicle("car1", 1);
+        Vehicle vehicle2 = new Vehicle("car2", 2);
         try {
             Owner owner = new Owner();
             parkingLot.registerObserver(owner);
-            parkingLot.vehicleParking(vehicle);
+            parkingLot.vehicleParking(vehicle1);
+            parkingLot.vehicleParking(vehicle2);
+            parkingLot.vehicleParking(new Vehicle("car3", 3));
+            parkingLot.vehicleParking(new Vehicle("car4", 4));
             String status = owner.getStatus();
             Assert.assertEquals("Parking lot is full", status);
         } catch (ParkingLotException e) {
@@ -117,11 +122,15 @@ public class ParkingLotTest {
      */
     @Test
     public void givenAVehicle_WhenParkingLotIsFull_ShouldGiveMessageToSecurityPersonal() {
-        Vehicle vehicle = new Vehicle("car1", 1);
+        Vehicle vehicle1 = new Vehicle("car1", 1);
+        Vehicle vehicle2 = new Vehicle("car2", 2);
         try {
             SecurityPersonal securityPersonal = new SecurityPersonal();
             parkingLot.registerObserver(securityPersonal);
-            parkingLot.vehicleParking(vehicle);
+            parkingLot.vehicleParking(vehicle1);
+            parkingLot.vehicleParking(vehicle2);
+            parkingLot.vehicleParking(new Vehicle("car3", 3));
+            parkingLot.vehicleParking(new Vehicle("car4", 4));
             String status = securityPersonal.getStatus();
             Assert.assertEquals("Parking lot is full", status);
         } catch (ParkingLotException e) {
@@ -189,10 +198,10 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_WhenParked_ShouldReturnTimeOfParking() {
         try {
-            Vehicle vehicle1 = new Vehicle("car1", 1);
+            Vehicle vehicle1 = new Vehicle("car", 1);
             parkingLot.vehicleParking(vehicle1);
             LocalDateTime localDateTime = LocalDateTime.now();
-            Assert.assertEquals(localDateTime,parkingLot.getParkedTime());
+            Assert.assertEquals(localDateTime, parkingLot.getParkedTime());
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
