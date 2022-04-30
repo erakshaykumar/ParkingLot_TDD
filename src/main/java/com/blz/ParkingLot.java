@@ -78,4 +78,7 @@ public class ParkingLot {
         }
         return 0;
     }
+    public int getVehicleLocation(Vehicle vehicle) {
+        return getVehicleLotNumber(vehicle);
+    }
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class ParkingLotTest {
     ParkingLot parkingLot = null;
+
     @Before
     public void setUp() throws Exception {
         parkingLot = new ParkingLot();
@@ -13,8 +14,8 @@ public class ParkingLotTest {
 
     /**
      * UC1
-     *TC1 = Ability To Park vehicle
-     *Given vehicle when parked should return true
+     * TC1 = Ability To Park vehicle
+     * Given vehicle when parked should return true
      */
     @Test
     public void givenVehicle_WhenParked_ShouldReturnTrue() {
@@ -28,6 +29,7 @@ public class ParkingLotTest {
         }
 
     }
+
     /**
      * UC1
      * TC2 = Ability To Park vehicle
@@ -46,6 +48,7 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+
     /**
      * UC2
      * TC3 = Ability To unPark vehicle
@@ -64,6 +67,7 @@ public class ParkingLotTest {
         }
 
     }
+
     /**
      * UC2
      * TC4 = Ability To unPark vehicle
@@ -80,6 +84,7 @@ public class ParkingLotTest {
         }
 
     }
+
     /**
      * UC2
      * TC5 = Ability To unPark vehicle
@@ -97,6 +102,7 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+
     /**
      * UC3
      * TC6 = Ability To check parking lot is full by owner
@@ -110,11 +116,12 @@ public class ParkingLotTest {
             parkingLot.registerObserver(owner);
             parkingLot.vehicleParking(vehicle);
             String status = owner.getStatus();
-            Assert.assertEquals("Parking lot is full",status);
+            Assert.assertEquals("Parking lot is full", status);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * UC4
      * TC7 = Ability to check the security personal is getting correct message when lot is full
@@ -133,6 +140,7 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+
     /**
      * UC5
      * TC8 = Ability to check the owner is getting correct message when Parking lot has space
@@ -163,15 +171,34 @@ public class ParkingLotTest {
         try {
             Owner owner = new Owner();
             parkingLot.registerObserver(owner);
-            Vehicle vehicle1 = new Vehicle("car1",1);
-            Vehicle vehicle2 = new Vehicle("car2",2);
+            Vehicle vehicle1 = new Vehicle("car1", 1);
+            Vehicle vehicle2 = new Vehicle("car2", 2);
             parkingLot.vehicleParking(vehicle1);
             parkingLot.vehicleParking(vehicle2);
             int vehicleLotNumber = parkingLot.getVehicleLotNumber(vehicle2);
-            Assert.assertEquals(2,vehicleLotNumber);
+            Assert.assertEquals(2, vehicleLotNumber);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * UC7
+     * TC9 =
+     * given vehicle when find vehicle should return key
+     */
+    @Test
+    public void givenVehicle_WhenVehicleFind_ShouldReturnKey() {
+        try {
+            Vehicle vehicle1 = new Vehicle("car1", 1);
+            Vehicle vehicle2 = new Vehicle("car2", 2);
+            parkingLot.vehicleParking(vehicle1);
+            parkingLot.vehicleParking(vehicle2);
+            int key = parkingLot.getVehicleLocation(vehicle2);
+            Assert.assertEquals(2, key);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
