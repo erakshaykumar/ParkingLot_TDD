@@ -207,5 +207,25 @@ public class ParkingLotTest {
         }
     }
 
+    @Test
+    public void givenAVehicle_WhenParked_ShouldParkEvenly() {
+        Vehicle vehicle1 = new Vehicle("car1", 1);
+        Vehicle vehicle2 = new Vehicle("car2", 2);
+        Vehicle vehicle3 = new Vehicle("car3", 3);
+        Vehicle vehicle4 = new Vehicle("car4", 4);
+        try {
+            parkingLot.vehicleParking(vehicle1);
+            parkingLot.vehicleParking(vehicle2);
+            parkingLot.vehicleParking(vehicle3);
+            parkingLot.vehicleUnparking(vehicle1);
+            parkingLot.vehicleUnparking(vehicle3);
+            parkingLot.vehicleParking(vehicle4);
+            parkingLot.vehicleParking(vehicle1);
+            Assert.assertEquals(3,parkingLot.getVehicleLocation(vehicle1));
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
