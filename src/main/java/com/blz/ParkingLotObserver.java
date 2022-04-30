@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/main/java/com/parkinglot/ParkingLotObserver.java
 /**
  * @Purpose : UC1-As a parking lot owner I want driver to be able to park their car
  * So that they can catch their flight.
@@ -11,16 +10,10 @@
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
-package com.parkinglot;
-
-public interface ParkingObserver {
-    public void update(String message);
-}
-=======
 package com.blz;
 
 public interface ParkingLotObserver {
     public void update(String message);
     public String getStatus();
 }
->>>>>>> UC5-MessageToOwner:src/main/java/com/blz/ParkingLotObserver.java
+

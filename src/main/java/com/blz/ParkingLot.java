@@ -2,10 +2,13 @@ package com.blz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ParkingLot {
     private Vehicle vehicle;
     private List<ParkingLotObserver> observers;
+    private Map<Integer,Vehicle> parkingMap;
+    Attendant attendant;
 
     public ParkingLot() {
         this.observers = new ArrayList<>();
@@ -67,5 +70,12 @@ public class ParkingLot {
 
     public void registerObserver(ParkingLotObserver observer) {
         this.observers.add(observer);
+    }
+
+    public int getVehicleLotNumber(Vehicle vehicle) {
+        for (Map.Entry map : parkingMap.entrySet()){
+            if(map.getValue()==vehicle) return (int) map.getKey();
+        }
+        return 0;
     }
 }

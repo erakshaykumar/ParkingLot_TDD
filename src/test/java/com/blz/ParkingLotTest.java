@@ -18,7 +18,7 @@ public class ParkingLotTest {
      */
     @Test
     public void givenVehicle_WhenParked_ShouldReturnTrue() {
-        Vehicle vehicle = new Vehicle("alto", 1);
+        Vehicle vehicle = new Vehicle("car", 1);
         try {
             parkingLot.vehicleParking(vehicle);
             boolean isParked = parkingLot.isParked(vehicle);
@@ -35,8 +35,8 @@ public class ParkingLotTest {
      */
     @Test
     public void givenVehicle_WhenAlreadyParked_ShouldThrowException() {
-        Vehicle vehicle = new Vehicle("alto", 1);
-        Vehicle vehicle1 = new Vehicle("alto 80", 2);
+        Vehicle vehicle = new Vehicle("car1", 1);
+        Vehicle vehicle1 = new Vehicle("car2", 2);
         try {
             parkingLot.vehicleParking(vehicle);
             parkingLot.vehicleParking(vehicle1);
@@ -53,7 +53,7 @@ public class ParkingLotTest {
      */
     @Test
     public void givenVehicle_WhenUnParked_ShouldReturnTrue() {
-        Vehicle vehicle = new Vehicle("alto", 1);
+        Vehicle vehicle = new Vehicle("car", 1);
         try {
             parkingLot.vehicleParking(vehicle);
             parkingLot.vehicleUnparking(vehicle);
@@ -71,7 +71,7 @@ public class ParkingLotTest {
      */
     @Test
     public void givenUnParkedVehicle_WhenTryToUnPark_ShouldReturnThrowException() {
-        Vehicle vehicle = new Vehicle("alto", 1);
+        Vehicle vehicle = new Vehicle("car", 1);
         try {
             parkingLot.vehicleUnparking(vehicle);
         } catch (ParkingLotException e) {
@@ -87,8 +87,8 @@ public class ParkingLotTest {
      */
     @Test
     public void givenVehicle_WhenTryToUnParkDifferentVehicle_ShouldThrowException() {
-        Vehicle vehicle = new Vehicle("alto", 1);
-        Vehicle vehicle1 = new Vehicle("alto 80", 2);
+        Vehicle vehicle = new Vehicle("car1", 1);
+        Vehicle vehicle1 = new Vehicle("car2", 2);
         try {
             parkingLot.vehicleParking(vehicle);
             parkingLot.vehicleUnparking(vehicle1);
@@ -104,7 +104,7 @@ public class ParkingLotTest {
      */
     @Test
     public void givenAVehicle_WhenParkingLotIsFull_ShouldGiveMessageToOwner() {
-        Vehicle vehicle = new Vehicle("alto", 1);
+        Vehicle vehicle = new Vehicle("car1", 1);
         try {
             Owner owner = new Owner();
             parkingLot.registerObserver(owner);
@@ -122,7 +122,7 @@ public class ParkingLotTest {
      */
     @Test
     public void givenAVehicle_WhenParkingLotIsFull_ShouldGiveMessageToSecurityPersonal() {
-        Vehicle vehicle = new Vehicle("alto", 1);
+        Vehicle vehicle = new Vehicle("car1", 1);
         try {
             SecurityPersonal securityPersonal = new SecurityPersonal();
             parkingLot.registerObserver(securityPersonal);
@@ -140,7 +140,7 @@ public class ParkingLotTest {
      */
     @Test
     public void givenAVehicle_WhenParkingLotHasSpaceAgain_ShouldGiveMessageToOwner() {
-        Vehicle vehicle = new Vehicle("alto", 1);
+        Vehicle vehicle = new Vehicle("car1", 1);
         try {
             Owner owner = new Owner();
             parkingLot.registerObserver(owner);
@@ -152,4 +152,26 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * UC6
+     * TC9 =
+     * given attendant when owner gives the slot to park the vehicle should park
+     */
+    @Test
+    public void givenAttendant_WhenOwnerGivesTheSlotToParkTheVehicle_ShouldPark() {
+        try {
+            Owner owner = new Owner();
+            parkingLot.registerObserver(owner);
+            Vehicle vehicle1 = new Vehicle("car1",1);
+            Vehicle vehicle2 = new Vehicle("car2",2);
+            parkingLot.vehicleParking(vehicle1);
+            parkingLot.vehicleParking(vehicle2);
+            int vehicleLotNumber = parkingLot.getVehicleLotNumber(vehicle2);
+            Assert.assertEquals(2,vehicleLotNumber);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
