@@ -179,7 +179,7 @@ public class ParkingLotTest {
      * UC6- given attendant when owner gives the slot to park the vehicle should park
      */
     @Test
-    public void givenAttendant_WhenOwnerGivesTheSlotToParkTheVehicle_ShouldPark() {
+    public void givenAttendant_WhenOwnerGivesTheSlotToParkTheVehicle_ShouldgetPark() {
         try {
             Owner owner = new Owner();
             parkingLot.registerObserver(owner);
@@ -226,8 +226,9 @@ public class ParkingLotTest {
         }
     }
 
+
     /**
-     * @UC9- Parking lot owner wants parking attendant to direct cars in evenly manner for Evenly Distribution
+     * @UC9- Parking lot owner wants parking attendant to direct cars in evenly manner for Evenly
      */
     @Test
     public void givenAVehicle_WhenParked_ShouldParkEvenly() {
@@ -243,11 +244,10 @@ public class ParkingLotTest {
             parkingLot.vehicleUnparking(vehicle3);
             parkingLot.vehicleParking(vehicle4);
             parkingLot.vehicleParking(vehicle1);
-            Assert.assertEquals(3,parkingLot.getVehicleLocation(vehicle1));
+            Assert.assertEquals(3, parkingLot.getVehicleLocation(vehicle1));
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
     }
-
 }
 

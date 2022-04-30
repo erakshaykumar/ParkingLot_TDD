@@ -20,6 +20,9 @@
 package com.blz;
 
 public interface ParkingLotObserver {
+    /*
+    To get the message
+     */
     public void update(String message);
     public String getStatus();
 }

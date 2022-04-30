@@ -27,19 +27,19 @@ import java.util.Map;
 
 public class ParkingLot {
     private static final int MAX_LOT_CAPACITY = 4;
-    private Map<Integer,Vehicle> parkingMap = new LinkedHashMap<>();
+    private Map<Integer, Vehicle> parkingMap = new LinkedHashMap<>();
     private List<ParkingLotObserver> observers;
     Attendant attendant;
     private LocalDateTime time;
 
     /**
-    Constructor For Parking Lot
+     * Constructor For Parking Lot
      */
     public ParkingLot() {
         this.observers = new ArrayList<>();
         attendant = new Attendant();
-        for(int i=1;i<=MAX_LOT_CAPACITY;i++){
-            parkingMap.put(i,null);
+        for (int i = 1; i <= MAX_LOT_CAPACITY; i++) {
+            parkingMap.put(i, null);
         }
     }
 
@@ -50,18 +50,45 @@ public class ParkingLot {
     public void vehicleParking(Vehicle vehicle) throws ParkingLotException {
         if (this.parkingMap.size() == MAX_LOT_CAPACITY && !parkingMap.containsValue(null))
             throw new ParkingLotException("Parking lot is full");
-        if(this.parkingMap.containsValue(null)){
+        if (this.parkingMap.containsValue(null)) {
             int key = attendant.parkTheVehicle(parkingMap);
-            this.parkingMap.put(key,vehicle);
+            this.parkingMap.put(key, vehicle);
             setParkTime(LocalDateTime.now());
         }
 
-        if(this.parkingMap.size()== MAX_LOT_CAPACITY && !parkingMap.containsValue(null)){
+        if (this.parkingMap.size() == MAX_LOT_CAPACITY && !parkingMap.containsValue(null)) {
             String message = "Parking lot is full";
-            for(ParkingLotObserver observer:observers){
+            for (ParkingLotObserver observer : observers) {
                 observer.update(message);
             }
         }
+    }
+
+    /**
+     * to unpark the vehicle
+     *
+     * @param vehicle
+     * @throws ParkingLotException
+     */
+    public void vehicleUnparking(Vehicle vehicle) throws ParkingLotException {
+        int key = 0;
+        int nullCount = 0;
+        for (Map.Entry map : parkingMap.entrySet()) {
+            if (map.getValue() == null) nullCount++;
+        }
+        if (nullCount == MAX_LOT_CAPACITY)
+            throw new ParkingLotException("lot is empty");
+        if (this.parkingMap.containsValue(vehicle)) {
+            for (Map.Entry map : parkingMap.entrySet()) {
+                if (map.getValue() == vehicle) key = (int) map.getKey();
+            }
+            this.parkingMap.put(key, null);
+            for (ParkingLotObserver observer : observers) {
+                observer.update("Parking lot has space");
+            }
+            return;
+        }
+        throw new ParkingLotException("Please ask correct vehicle");
     }
 
     /**
@@ -75,8 +102,19 @@ public class ParkingLot {
         return false;
     }
 
+
     /**
-     *Set Park Time
+     * Get Parked Time
+     *
+     * @return
+     */
+    public LocalDateTime getParkedTime() {
+        return this.time;
+    }
+
+    /**
+     * Set Park Time
+     *
      * @param time
      */
     public void setParkTime(LocalDateTime time) {
@@ -84,36 +122,10 @@ public class ParkingLot {
     }
 
     /**
-     *Get Parked Time
-     * @return
-     */
-    public LocalDateTime getParkedTime() {
-        return this.time;
-    }
-    /**
      * @Purpose : To unPark the vehicle
      * @Param : vehicle
      */
-    public void vehicleUnparking(Vehicle vehicle) throws ParkingLotException {
-        int key=0;
-        int nullCount=0;
-        for(Map.Entry map : parkingMap.entrySet()){
-            if(map.getValue()==null) nullCount++;
-        }
-        if(nullCount==MAX_LOT_CAPACITY)
-            throw new ParkingLotException("lot is empty");
-        if (this.parkingMap.containsValue(vehicle)){
-            for(Map.Entry map : parkingMap.entrySet()){
-                if(map.getValue()==vehicle) key= (int) map.getKey();
-            }
-            this.parkingMap.put(key,null);
-            for(ParkingLotObserver observer:observers){
-                observer.update("Parking lot has space");
-            }
-            return;
-        }
-        throw new ParkingLotException("Please ask correct vehicle");
-    }
+
 
     /**
      * @Purpose :  Method to check vehicle is unpark or not
@@ -126,30 +138,29 @@ public class ParkingLot {
         return false;
     }
 
+
     /**
-     Register Observer
+     * To check the location
+     */
+    public int getVehicleLocation(Vehicle vehicle) {
+        return getVehicleLotNumber(vehicle);
+    }
+
+    /**
+     * Register Observer
      */
     public void registerObserver(ParkingLotObserver observer) {
         this.observers.add(observer);
     }
 
     /**
-     Get Vehicle Lot Number
+     * to check the lot number
      */
     public int getVehicleLotNumber(Vehicle vehicle) {
-        for (Map.Entry map : parkingMap.entrySet()){
-            if(map.getValue()==vehicle)
+        for (Map.Entry map : parkingMap.entrySet()) {
+            if (map.getValue() == vehicle)
                 return (int) map.getKey();
         }
         return 0;
     }
-
-    /**
-    Get Vehicle Location
-     */
-    public int getVehicleLocation(Vehicle vehicle) {
-        return getVehicleLotNumber(vehicle);
-    }
-
-
 }

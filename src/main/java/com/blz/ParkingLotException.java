@@ -22,7 +22,7 @@ package com.blz;
 public class ParkingLotException extends Exception {
 
     /*
-    Constructor To ParkingLotException
+    Constructor to pass exception message
      */
     public ParkingLotException(String message){
         super (message);

@@ -24,7 +24,7 @@ public class Vehicle {
     Integer id;
 
     /**
-    Constructor For Vehicle
+     * Constructor of Vehicle
      */
     public Vehicle(String name, Integer id) {
         this.name = name;
