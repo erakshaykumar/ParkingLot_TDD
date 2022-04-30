@@ -7,6 +7,13 @@
  * redirect my security staff
  * UC5-As a parking lot Owner I want to know when the parking lot has space again So that I
  * can take in the full sign
+ * UC6-As a parking lot Owner I want a parking attendant to park cars so that I can make decisions
+ * on where to park the cars
+ * UC7-As a driver I want to find my car so that can go home
+ * UC8-As a parking lot owner I want to know when a car was parked on my lot
+ * so that I charge the lot users
+ * UC9-As a parking lot Owner I want a parking attendant to evenly direct cars to the lots
+ * So that the lots have an evenly distribution
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
