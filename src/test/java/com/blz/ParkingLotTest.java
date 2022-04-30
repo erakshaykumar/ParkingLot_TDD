@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+
 public class ParkingLotTest {
     ParkingLot parkingLot = null;
 
@@ -13,9 +15,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC1
-     * TC1 = Ability To Park vehicle
-     * Given vehicle when parked should return true
+     * UC1- Given vehicle when parked should return true
      */
     @Test
     public void givenVehicle_WhenParked_ShouldReturnTrue() {
@@ -31,9 +31,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC1
-     * TC2 = Ability To Park vehicle
-     * given a vehicle when already parked should throw exception
+     * UC1- given a vehicle when already parked should throw exception
      */
     @Test
     public void givenVehicle_WhenAlreadyParked_ShouldThrowException() {
@@ -50,9 +48,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC2
-     * TC3 = Ability To unPark vehicle
-     * Given a vehicle when unparked should return true
+     * UC2- Given a vehicle when unparked should return true
      */
     @Test
     public void givenVehicle_WhenUnParked_ShouldReturnTrue() {
@@ -69,9 +65,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC2
-     * TC4 = Ability To unPark vehicle
-     * given a unparked vehicle when try to unpark should return throw exception
+     * UC2- given a unparked vehicle when try to unpark should return throw exception
      */
     @Test
     public void givenUnParkedVehicle_WhenTryToUnPark_ShouldReturnThrowException() {
@@ -86,9 +80,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC2
-     * TC5 = Ability To unPark vehicle
-     * Given a vehicle when try to unpark different vehicle should throw exception
+     * UC2- Given a vehicle when try to unpark different vehicle should throw exception
      */
     @Test
     public void givenVehicle_WhenTryToUnParkDifferentVehicle_ShouldThrowException() {
@@ -104,9 +96,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC3
-     * TC6 = Ability To check parking lot is full by owner
-     * Given a vehicle when parking lot is full should give message to owner
+     * UC3 Given a vehicle when parking lot is full should give message to owner
      */
     @Test
     public void givenAVehicle_WhenParkingLotIsFull_ShouldGiveMessageToOwner() {
@@ -123,9 +113,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC4
-     * TC7 = Ability to check the security personal is getting correct message when lot is full
-     * Given a vehicle when parking lot is full should give message to security personal
+     * UC4- Given a vehicle when parking lot is full should give message to security personal
      */
     @Test
     public void givenAVehicle_WhenParkingLotIsFull_ShouldGiveMessageToSecurityPersonal() {
@@ -142,9 +130,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC5
-     * TC8 = Ability to check the owner is getting correct message when Parking lot has space
-     * Given a vehicle when parking lot has space again should give message to owner
+     * UC5- Given a vehicle when parking lot has space again should give message to owner
      */
     @Test
     public void givenAVehicle_WhenParkingLotHasSpaceAgain_ShouldGiveMessageToOwner() {
@@ -162,9 +148,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC6
-     * TC9 =
-     * given attendant when owner gives the slot to park the vehicle should park
+     * UC6- given attendant when owner gives the slot to park the vehicle should park
      */
     @Test
     public void givenAttendant_WhenOwnerGivesTheSlotToParkTheVehicle_ShouldPark() {
@@ -183,9 +167,7 @@ public class ParkingLotTest {
     }
 
     /**
-     * UC7
-     * TC9 =
-     * given vehicle when find vehicle should return key
+     * UC7- given vehicle when find vehicle should return key
      */
     @Test
     public void givenVehicle_WhenVehicleFind_ShouldReturnKey() {
@@ -200,5 +182,21 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * UC8- given vehicle when find vehicle should return key
+     */
+    @Test
+    public void givenAVehicle_WhenParked_ShouldReturnTimeOfParking() {
+        try {
+            Vehicle vehicle1 = new Vehicle("car1", 1);
+            parkingLot.vehicleParking(vehicle1);
+            LocalDateTime localDateTime = LocalDateTime.now();
+            Assert.assertEquals(localDateTime,parkingLot.getParkedTime());
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

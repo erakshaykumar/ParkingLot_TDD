@@ -18,6 +18,11 @@ public class Owner implements ParkingLotObserver{
         return this.status;
     }
 
+    /**
+     *
+     * @param parkingMap
+     * @return returns key to attendant
+     */
     public int getLotNumberToPark(Map<Integer, Vehicle> parkingMap) {
         int lotNumber=1;
         if(parkingMap.isEmpty()) this.key = lotNumber;
