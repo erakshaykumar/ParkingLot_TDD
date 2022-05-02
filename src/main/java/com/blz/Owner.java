@@ -14,6 +14,8 @@
  * so that I charge the lot users
  * UC9-As a parking lot Owner I want a parking attendant to evenly direct cars to the lots
  * So that the lots have an evenly distribution
+ * UC10-As handicap driver I want the parking attendant to park my car to a lot which has the
+ * nearest free space So that I don’t have to go far for unparking my car
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
@@ -23,7 +25,7 @@ import java.util.Map;
 
 public class Owner implements ParkingLotObserver {
     private static String status;
-    private int key;
+    private int key = 0;
 
     /**
     Updating message to owner
@@ -43,11 +45,23 @@ public class Owner implements ParkingLotObserver {
      * @param parkingMap
      * @return returns key to attendant
      */
-    public int getLotNumberToPark(Map<Integer, Vehicle> parkingMap) {
-        for (Map.Entry map : parkingMap.entrySet()) {
-            if (map.getValue() == null) {
-                this.key = (int) map.getKey();
-                break;
+    public int getLotNumberToPark(Map<Integer, Vehicle> parkingMap, DriverType driverType) {
+        if(driverType==DriverType.HANDICAP)
+            for(int key=1;key<=parkingMap.size();key++){
+                if(parkingMap.get(key)==null)
+                    return key;
+            }
+
+        if(driverType==DriverType.NORMAL) {
+            int key = 6;
+            for ( key = 6; key <= parkingMap.size(); key++) {
+                if (parkingMap.get(key)==null)
+                    return key;
+            }
+
+            for ( key = 1; key <= parkingMap.size(); key++) {
+                if (parkingMap.get(key)==null)
+                    return key;
             }
         }
         return this.key;

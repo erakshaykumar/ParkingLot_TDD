@@ -14,6 +14,8 @@
  * so that I charge the lot users
  * UC9-As a parking lot Owner I want a parking attendant to evenly direct cars to the lots
  * So that the lots have an evenly distribution
+ * UC10-As handicap driver I want the parking attendant to park my car to a lot which has the
+ * nearest free space So that I don’t have to go far for unparking my car
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
@@ -26,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ParkingLot {
-    private static final int MAX_LOT_CAPACITY = 4;
+    private static final int MAX_LOT_CAPACITY = 10;
     private Map<Integer,Vehicle> parkingMap = new LinkedHashMap<>();
     private List<ParkingLotObserver> observers;
     Attendant attendant;
@@ -47,11 +49,11 @@ public class ParkingLot {
      * @Purpose : To park the vehicle
      * @Param : vehicle
      */
-    public void vehicleParking(Vehicle vehicle) throws ParkingLotException {
+    public void vehicleParking(Vehicle vehicle, DriverType driverType) throws ParkingLotException {
         if (this.parkingMap.size() == MAX_LOT_CAPACITY && !parkingMap.containsValue(null))
             throw new ParkingLotException("Parking lot is full");
         if(this.parkingMap.containsValue(null)){
-            int key = attendant.parkTheVehicle(parkingMap);
+            int key = attendant.parkTheVehicle(parkingMap,driverType);
             this.parkingMap.put(key,vehicle);
             setParkTime(LocalDateTime.now());
         }
@@ -63,6 +65,7 @@ public class ParkingLot {
             }
         }
     }
+
 
     /**
      * @Purpose : Method to check vehicle is park or not
@@ -97,6 +100,7 @@ public class ParkingLot {
     public void vehicleUnparking(Vehicle vehicle) throws ParkingLotException {
         int key=0;
         int nullCount=0;
+       // if (this.parkingMap.isEmpty())
         for(Map.Entry map : parkingMap.entrySet()){
             if(map.getValue()==null) nullCount++;
         }
