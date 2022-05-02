@@ -18,6 +18,7 @@
  * nearest free space So that I don’t have to go far for unparking my car
  * UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
  * the highest number of free space So that it is easier to manoeuvre large cars
+ * UC12 - Police department wants location of all parked white cars
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */

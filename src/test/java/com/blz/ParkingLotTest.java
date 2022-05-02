@@ -18,6 +18,7 @@
  * nearest free space So that I don’t have to go far for unparking my car
  * UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
  * the highest number of free space So that it is easier to manoeuvre large cars
+ * UC12 - Police department wants location of all parked white cars
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
@@ -26,7 +27,9 @@ package com.blz;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.time.LocalDateTime;
 
 public class ParkingLotTest {
@@ -96,7 +99,7 @@ public class ParkingLotTest {
         try {
             parkingLot.vehicleUnparking(vehicle);
         } catch (ParkingLotException e) {
-            Assert.assertEquals("lot is empty", e.getMessage());
+            Assert.assertEquals("Please ask correct vehicle", e.getMessage());
             e.printStackTrace();
         }
 
@@ -314,5 +317,29 @@ public class ParkingLotTest {
         }
     }
 
+    /**
+     *@UC12 - Police department wants location of all parked white cars
+     */
+    @Test
+    public void givenAParkingLot_WhenWhiteCarsFound_ShouldInformPoliceDepartment() {
+        Vehicle vehicle1 = new Vehicle("car1", 1, "white");
+        Vehicle vehicle2 = new Vehicle("car2", 2,"white");
+        Vehicle vehicle3 = new Vehicle("car3", 3,"white");
+        Vehicle vehicle4 = new Vehicle("car4", 4,"blue");
+        try {
+            List<Vehicle> expectedList = new ArrayList<>(Arrays.asList(vehicle2, vehicle3, vehicle1));
+            List<Integer> expectedLotNumberList = new ArrayList<>(Arrays.asList(1,2,6));
+            parkingLot.vehicleParking(vehicle1, DriverType.NORMAL, CarType.SMALL);//6
+            parkingLot.vehicleParking(vehicle2, DriverType.HANDICAP, CarType.SMALL);//1
+            parkingLot.vehicleParking(vehicle3, DriverType.HANDICAP, CarType.SMALL);//2
+            parkingLot.vehicleParking(vehicle4, DriverType.HANDICAP, CarType.SMALL);//3
+            List<Vehicle> actualList = parkingLot.getVehicleByColor("white");
+            Assert.assertEquals(expectedList,actualList);
+            List<Integer> actualLotNumberList = parkingLot.getVehicleLotNumberByColor("white");
+            Assert.assertEquals(expectedLotNumberList,actualLotNumberList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

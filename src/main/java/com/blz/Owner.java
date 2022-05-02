@@ -18,6 +18,7 @@
  * nearest free space So that I don’t have to go far for unparking my car
  * UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
  * the highest number of free space So that it is easier to manoeuvre large cars
+ * UC12 - Police department wants location of all parked white cars
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
@@ -48,22 +49,23 @@ public class Owner implements ParkingLotObserver {
      * @return returns key to attendant
      */
     public int getLotNumberToPark(Map<Integer, Vehicle> parkingMap, DriverType driverType) {
-        if(driverType==DriverType.HANDICAP)
-            for(int key=1;key<=parkingMap.size();key++){
-                if(parkingMap.get(key)==null)
+        if (driverType == DriverType.NORMAL) {
+            int normalKey =6;
+            for ( normalKey = 6; normalKey <= parkingMap.size(); normalKey++) {
+                if (parkingMap.get(normalKey) == null)
+                    return normalKey;
+            }
+        }
+        if (driverType == DriverType.HANDICAP)
+            for (int key = 1; key <= parkingMap.size(); key++) {
+                if (parkingMap.get(key) == null)
                     return key;
             }
-
-        if(driverType==DriverType.NORMAL) {
-            int key;
-            for ( key = 6; key <= parkingMap.size(); key++) {
-                if (parkingMap.get(key)==null)
-                    return key;
-            }
-
-            for ( key = 1; key <= parkingMap.size(); key++) {
-                if (parkingMap.get(key)==null)
-                    return key;
+        if (driverType == DriverType.NORMAL) {
+            int normalKey = 1;
+            for ( normalKey=1; normalKey <= parkingMap.size(); normalKey++) {
+                if (parkingMap.get(normalKey) == null)
+                    return normalKey;
             }
         }
         return this.key;
