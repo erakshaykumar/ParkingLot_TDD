@@ -19,6 +19,7 @@
  * UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
  * the highest number of free space So that it is easier to manoeuvre large cars
  * UC12 - Police department wants location of all parked white cars
+ * UC13 - Police department wants location and plate number of all parked blue toyota cars
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
@@ -220,6 +221,31 @@ public class ParkingLot {
         return new ArrayList<>(map.values());
     }
 
+    /**
+     * @param modelName, colour
+     * @return list of lot number of cars by using color and modelName
+     */
+    public List<Integer> getVehicleLotNumberByColorAndModelName(String color, String name) {
+        List<Integer> lotList = new ArrayList<>();
+        for (int key = 1; key <= parkingMap1.size(); key++) {
+            if (parkingMap1.get(key) != null)
+                if (parkingMap1.get(key).getColor() == color && parkingMap1.get(key).getName() == name)
+                    lotList.add(key);
+        }
+        return lotList;
+    }
+
+    public List<String> getVehicleNumberPlate(List<Integer> lotNumberList) {
+        List<String> numPlateList = new ArrayList<>();
+        for (int i = 0; i < lotNumberList.size(); i++) {
+            numPlateList.add(parkingMap1.get(lotNumberList.get(i)).getPlateNumber());
+        }
+        return numPlateList;
+    }
+
+    public String getVehicleNumberPlateBylotNumber(int key) {
+        return parkingMap1.get(key).getPlateNumber();
+    }
 }
 
 

@@ -19,6 +19,7 @@
  * UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
  * the highest number of free space So that it is easier to manoeuvre large cars
  * UC12 - Police department wants location of all parked white cars
+ * UC13 - Police department wants location and plate number of all parked blue toyota cars
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */

@@ -19,6 +19,7 @@
  * UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
  * the highest number of free space So that it is easier to manoeuvre large cars
  * UC12 - Police department wants location of all parked white cars
+ * UC13 - Police department wants location and plate number of all parked blue toyota cars
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
@@ -337,6 +338,32 @@ public class ParkingLotTest {
             Assert.assertEquals(expectedList,actualList);
             List<Integer> actualLotNumberList = parkingLot.getVehicleLotNumberByColor("white");
             Assert.assertEquals(expectedLotNumberList,actualLotNumberList);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *@UC13 - Police department wants location and plate number of all parked blue toyota cars
+     */
+    @Test
+    public void givenAParkingLot_WhenBlueToyotaFound_ShouldReturnLocationAndPlateNumber() {
+        Vehicle vehicle1 = new Vehicle("car1", 1, "white", "MH-22-GE338");
+        Vehicle vehicle2 = new Vehicle("toyota", 2,"blue", "MH-16-HS347");
+        Vehicle vehicle3 = new Vehicle("car3", 3,"white", "MH-04-ND466");
+        Vehicle vehicle4 = new Vehicle("toyota", 4,"blue", "MH-02-DK9900");
+        try {
+            parkingLot.vehicleParking(vehicle1, DriverType.NORMAL, CarType.SMALL);//6
+            parkingLot.vehicleParking(vehicle2, DriverType.NORMAL, CarType.SMALL);//7
+            parkingLot.vehicleParking(vehicle3, DriverType.HANDICAP, CarType.SMALL);//1
+            parkingLot.vehicleParking(vehicle4, DriverType.HANDICAP, CarType.SMALL);//2
+            List<Integer> lotNumberList = parkingLot.getVehicleLotNumberByColorAndModelName("blue", "toyota");
+            Assert.assertEquals(Arrays.asList(2,7),lotNumberList);
+            List<String> vehicleNumberPlate = parkingLot.getVehicleNumberPlate(lotNumberList);
+            Assert.assertEquals(Arrays.asList("MH-02-DK9900","MH-16-HS347"),vehicleNumberPlate);
+            int key = parkingLot.getVehicleLocation(vehicle4);
+            String vehicleNumberPlateBylotNumber = parkingLot.getVehicleNumberPlateBylotNumber(key);
+            Assert.assertEquals("MH-02-DK9900",vehicleNumberPlateBylotNumber);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
