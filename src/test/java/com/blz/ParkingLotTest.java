@@ -16,6 +16,8 @@
  * So that the lots have an evenly distribution
  * UC10-As handicap driver I want the parking attendant to park my car to a lot which has the
  * nearest free space So that I don’t have to go far for unparking my car
+ * UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
+ * the highest number of free space So that it is easier to manoeuvre large cars
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
@@ -42,7 +44,7 @@ public class ParkingLotTest {
     public void givenVehicle_WhenParked_ShouldReturnTrue() {
         Vehicle vehicle = new Vehicle("car", 1);
         try {
-            parkingLot.vehicleParking(vehicle, DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle, DriverType.NORMAL,CarType.SMALL);
             boolean isParked = parkingLot.isParked(vehicle);
             Assert.assertTrue(isParked);
         } catch (ParkingLotException e) {
@@ -59,8 +61,8 @@ public class ParkingLotTest {
         Vehicle vehicle = new Vehicle("car1", 1);
         Vehicle vehicle1 = new Vehicle("car2", 2);
         try {
-            parkingLot.vehicleParking(vehicle, DriverType.NORMAL);
-            parkingLot.vehicleParking(vehicle1, DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle, DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle1, DriverType.NORMAL,CarType.SMALL);
             boolean isParked = parkingLot.isParked(vehicle);
         } catch (ParkingLotException e) {
             Assert.assertEquals("Parking lot is full", e.getMessage());
@@ -75,7 +77,7 @@ public class ParkingLotTest {
     public void givenVehicle_WhenUnParked_ShouldReturnTrue() {
         Vehicle vehicle = new Vehicle("car", 1);
         try {
-            parkingLot.vehicleParking(vehicle,DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle,DriverType.NORMAL,CarType.SMALL);
             parkingLot.vehicleUnparking(vehicle);
             boolean isUnParked = parkingLot.isUnParked(vehicle);
             Assert.assertTrue(isUnParked);
@@ -108,7 +110,7 @@ public class ParkingLotTest {
         Vehicle vehicle = new Vehicle("car1", 1);
         Vehicle vehicle1 = new Vehicle("car2", 2);
         try {
-            parkingLot.vehicleParking(vehicle,DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle,DriverType.NORMAL,CarType.SMALL);
             parkingLot.vehicleUnparking(vehicle1);
         } catch (ParkingLotException e) {
             Assert.assertEquals("Please ask correct vehicle", e.getMessage());
@@ -127,16 +129,16 @@ public class ParkingLotTest {
         try {
             Owner owner = new Owner();
             parkingLot.registerObserver(owner);
-            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL);
-            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car3", 3),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car4", 4),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car5", 5),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car6", 6),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car7", 7),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car8", 8),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car9", 9),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car10", 10),DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car3", 3),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car4", 4),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car5", 5),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car6", 6),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car7", 7),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car8", 8),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car9", 9),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car10", 10),DriverType.NORMAL,CarType.SMALL);
             String status = owner.getStatus();
             Assert.assertEquals("Parking lot is full", status);
         } catch (ParkingLotException e) {
@@ -154,16 +156,16 @@ public class ParkingLotTest {
         try {
             SecurityPersonal securityPersonal = new SecurityPersonal();
             parkingLot.registerObserver(securityPersonal);
-            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL);
-            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car3", 3),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car4", 4),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car5", 5),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car6", 6),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car7", 7),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car8", 8),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car9", 9),DriverType.NORMAL);
-            parkingLot.vehicleParking(new Vehicle("car10", 10),DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car3", 3),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car4", 4),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car5", 5),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car6", 6),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car7", 7),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car8", 8),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car9", 9),DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(new Vehicle("car10", 10),DriverType.NORMAL,CarType.SMALL);
             String status = securityPersonal.getStatus();
             Assert.assertEquals("Parking lot is full", status);
         } catch (ParkingLotException e) {
@@ -180,7 +182,7 @@ public class ParkingLotTest {
         try {
             Owner owner = new Owner();
             parkingLot.registerObserver(owner);
-            parkingLot.vehicleParking(vehicle,DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle,DriverType.NORMAL,CarType.SMALL);
             parkingLot.vehicleUnparking(vehicle);
             String status = owner.getStatus();
             Assert.assertEquals("Parking lot has space", status);
@@ -199,8 +201,8 @@ public class ParkingLotTest {
             parkingLot.registerObserver(owner);
             Vehicle vehicle1 = new Vehicle("car1", 1);
             Vehicle vehicle2 = new Vehicle("car2", 2);
-            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL);
-            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL,CarType.SMALL);
             int vehicleLotNumber = parkingLot.getVehicleLotNumber(vehicle2);
             Assert.assertEquals(7, vehicleLotNumber);
         } catch (ParkingLotException e) {
@@ -216,8 +218,8 @@ public class ParkingLotTest {
         try {
             Vehicle vehicle1 = new Vehicle("car1", 1);
             Vehicle vehicle2 = new Vehicle("car2", 2);
-            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL);
-            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL,CarType.SMALL);
             int key = parkingLot.getVehicleLocation(vehicle2);
             Assert.assertEquals(7, key);
         } catch (ParkingLotException e) {
@@ -232,7 +234,7 @@ public class ParkingLotTest {
     public void givenAVehicle_WhenParked_ShouldReturnTimeOfParking() {
         try {
             Vehicle vehicle1 = new Vehicle("car", 1);
-            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL,CarType.SMALL);
             LocalDateTime localDateTime = LocalDateTime.now();
             Assert.assertEquals(localDateTime, parkingLot.getParkedTime());
         } catch (ParkingLotException e) {
@@ -250,13 +252,13 @@ public class ParkingLotTest {
         Vehicle vehicle3 = new Vehicle("car3", 3);
         Vehicle vehicle4 = new Vehicle("car4", 4);
         try {
-            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL);
-            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL);
-            parkingLot.vehicleParking(vehicle3,DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle2,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle3,DriverType.NORMAL,CarType.SMALL);
             parkingLot.vehicleUnparking(vehicle1);
             parkingLot.vehicleUnparking(vehicle3);
-            parkingLot.vehicleParking(vehicle4,DriverType.NORMAL);
-            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL);
+            parkingLot.vehicleParking(vehicle4,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL,CarType.SMALL);
             Assert.assertEquals(8,parkingLot.getVehicleLocation(vehicle1));
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -274,15 +276,39 @@ public class ParkingLotTest {
         Vehicle vehicle3 = new Vehicle("car3", 3);
 
         try {
-            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL);
-            parkingLot.vehicleParking(vehicle2,DriverType.HANDICAP);
-            parkingLot.vehicleParking(vehicle3,DriverType.HANDICAP);
+            parkingLot.vehicleParking(vehicle1,DriverType.NORMAL,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle2,DriverType.HANDICAP,CarType.SMALL);
+            parkingLot.vehicleParking(vehicle3,DriverType.HANDICAP,CarType.SMALL);
             int key1 = parkingLot.getVehicleLocation(vehicle1);//6
             int key2 = parkingLot.getVehicleLocation(vehicle2);//1
             int key3 = parkingLot.getVehicleLocation(vehicle3);//1
             Assert.assertEquals(6,key1);
             Assert.assertEquals(1,key2);
             Assert.assertEquals(2,key3);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
+     * the highest number of free space So that it is easier to manoeuvre large cars
+     */
+    @Test
+    public void givenTwoParkingMaps_WhenLargeVehicleComes_ShouldParkAtLotHavingLargeSpace() {
+        Vehicle vehicle1 = new Vehicle("car1", 1);
+        Vehicle vehicle2 = new Vehicle("car2", 2);
+        Vehicle vehicle3 = new Vehicle("car3", 3);
+        try {
+            parkingLot.vehicleParking(vehicle1, DriverType.NORMAL, CarType.SMALL);//6
+            parkingLot.vehicleParking(vehicle2, DriverType.HANDICAP, CarType.SMALL);//1
+            parkingLot.vehicleParking(vehicle3, DriverType.HANDICAP, CarType.LARGE);//1
+            int key1 = parkingLot.getVehicleLocation(vehicle1);//6
+            int key2 = parkingLot.getVehicleLocation(vehicle2);//1
+            int key3 = parkingLot.getVehicleLocation(vehicle3);//1
+            Assert.assertEquals(6, key1);
+            Assert.assertEquals(1, key2);
+            Assert.assertEquals(1, key3);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }

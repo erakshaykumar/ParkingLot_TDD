@@ -16,6 +16,8 @@
  * So that the lots have an evenly distribution
  * UC10-As handicap driver I want the parking attendant to park my car to a lot which has the
  * nearest free space So that I don’t have to go far for unparking my car
+ * UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
+ * the highest number of free space So that it is easier to manoeuvre large cars
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
@@ -30,26 +32,42 @@ import java.util.Map;
 public class ParkingLot {
     private static final int MAX_LOT_CAPACITY = 10;
     private Map<Integer,Vehicle> parkingMap = new LinkedHashMap<>();
+    private Map<Integer,Vehicle> parkingMap1 = new LinkedHashMap<>();
+    private Map<Integer,Vehicle> parkingMap2 = new LinkedHashMap<>();
     private List<ParkingLotObserver> observers;
     Attendant attendant;
     private LocalDateTime time;
 
+
     /**
-    Constructor For Parking Lot
+     * @Purpose : Parking Lot Initialisation
+     * @Param :Vehicle , parking lot capacity
+     * @Function : Array , Hashmap
+     * @Return : NA
      */
     public ParkingLot() {
         this.observers = new ArrayList<>();
         attendant = new Attendant();
         for(int i=1;i<=MAX_LOT_CAPACITY;i++){
-            parkingMap.put(i,null);
+            parkingMap1.put(i,null);
+        }
+
+        for(int i=1;i<=MAX_LOT_CAPACITY;i++){
+            parkingMap2.put(i,null);
         }
     }
 
     /**
-     * @Purpose : To park the vehicle
-     * @Param : vehicle
+     * @Purpose :To park Vehicle as per availability by attendant
+     * @Param : map,exception handling, key value , Date time
+     * @Function :To check for parking status
+     * @Return : Local date & Time
      */
-    public void vehicleParking(Vehicle vehicle, DriverType driverType) throws ParkingLotException {
+    public void vehicleParking(Vehicle vehicle, DriverType driverType, CarType carType) throws ParkingLotException {
+        if(carType==CarType.SMALL)
+            parkingMap=parkingMap1;
+        if(carType==CarType.LARGE)
+            parkingMap=parkingMap2;
         if (this.parkingMap.size() == MAX_LOT_CAPACITY && !parkingMap.containsValue(null))
             throw new ParkingLotException("Parking lot is full");
         if(this.parkingMap.containsValue(null)){
@@ -66,41 +84,52 @@ public class ParkingLot {
         }
     }
 
-
     /**
-     * @Purpose : Method to check vehicle is park or not
-     * @Param : vehicle
-     * @Return : Returns boolean value true or false
+     * @Purpose :To check for parked vehicle (car)
+     * @Param :boolean
+     * @Function :To park and assign status
+     * @Return :t/f
      */
     public boolean isParked(Vehicle vehicle) {
+        if(parkingMap1.containsValue(vehicle))
+            parkingMap=parkingMap1;
+        if(parkingMap2.containsValue(vehicle))
+            parkingMap=parkingMap2;
         if (this.parkingMap.containsValue(vehicle))
             return true;
         return false;
     }
 
+
     /**
-     *Set Park Time
-     * @param time
+     * @Purpose :Set & get parking time for parking charges
+     * @Param :Date and time
+     * @Function :To get time for calculating charges
+     * @Return :
      */
     public void setParkTime(LocalDateTime time) {
         this.time = time;
     }
 
-    /**
-     *Get Parked Time
-     * @return
-     */
     public LocalDateTime getParkedTime() {
         return this.time;
     }
+
+
     /**
-     * @Purpose : To unPark the vehicle
-     * @Param : vehicle
+     * @Purpose :To unpark vehicle (car)
+     * @Param :map,observer,array
+     * @Function :To initiate sequence parking
+     * @Return :key value matches
      */
     public void vehicleUnparking(Vehicle vehicle) throws ParkingLotException {
+        if(parkingMap1.containsValue(vehicle))
+            parkingMap=parkingMap1;
+        if(parkingMap2.containsValue(vehicle))
+            parkingMap=parkingMap2;
         int key=0;
         int nullCount=0;
-       // if (this.parkingMap.isEmpty())
+
         for(Map.Entry map : parkingMap.entrySet()){
             if(map.getValue()==null) nullCount++;
         }
@@ -125,22 +154,24 @@ public class ParkingLot {
      * @Return : Returns boolean value true or false
      */
     public boolean isUnParked(Vehicle vehicle) {
+        if(parkingMap1.containsValue(vehicle))
+            parkingMap=parkingMap1;
+        if(parkingMap2.containsValue(vehicle))
+            parkingMap=parkingMap2;
         if (!this.parkingMap.containsValue(vehicle))
             return true;
         return false;
     }
 
-    /**
-     Register Observer
-     */
     public void registerObserver(ParkingLotObserver observer) {
         this.observers.add(observer);
     }
 
-    /**
-     Get Vehicle Lot Number
-     */
     public int getVehicleLotNumber(Vehicle vehicle) {
+        if(parkingMap1.containsValue(vehicle))
+            parkingMap=parkingMap1;
+        if(parkingMap2.containsValue(vehicle))
+            parkingMap=parkingMap2;
         for (Map.Entry map : parkingMap.entrySet()){
             if(map.getValue()==vehicle)
                 return (int) map.getKey();
@@ -148,12 +179,11 @@ public class ParkingLot {
         return 0;
     }
 
-    /**
-    Get Vehicle Location
-     */
     public int getVehicleLocation(Vehicle vehicle) {
         return getVehicleLotNumber(vehicle);
     }
 
 
 }
+
+

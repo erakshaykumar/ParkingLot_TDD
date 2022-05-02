@@ -16,6 +16,8 @@
  * So that the lots have an evenly distribution
  * UC10-As handicap driver I want the parking attendant to park my car to a lot which has the
  * nearest free space So that I don’t have to go far for unparking my car
+ * UC11- As a parking lot Owner I want a parking attendant to direct large cars to the lot which has
+ * the highest number of free space So that it is easier to manoeuvre large cars
  * @File : Parking Lot TDD Problem
  * @Author : Akshay Kumar & Shardul Kumbhar
  */
